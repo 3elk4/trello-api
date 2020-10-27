@@ -10,7 +10,7 @@ class BoardController < ApplicationController
         render json: {tables: map}, status: 200
     end
 
-    def show
+    def get
         ensure_params_exists
         table = current_user.tables.find(params[:id])
 
