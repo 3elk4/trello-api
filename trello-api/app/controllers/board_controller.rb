@@ -19,7 +19,7 @@ class BoardController < ApplicationController
 
     def create
         ensure_params_exists
-        Table.create!(board_params.to_h) #todo: coś podziałaś z parametrami
+        Table.create!(board_params)
 
         render json: {success: "Board created successfully!"}, status: 200
     end
@@ -27,7 +27,7 @@ class BoardController < ApplicationController
     def edit
         ensure_params_exists
         table = current_user.tables.find(params[:id])
-        table.update(dog_params)
+        table.update(board_params)
 
         render json: {success: "Board updated successfully!"}, status: 200
     end
@@ -43,7 +43,7 @@ class BoardController < ApplicationController
     private
 
     def board_params
-        params.require([:name, :is_public, :user_id])
+        params.permit(:name, :is_public, :user_id)
     end
 
     def ensure_params_exists
