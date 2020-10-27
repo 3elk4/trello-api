@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :users
 
   post 'authenticate', to: 'login#authenticate'
+  get 'index', to: 'board#index'
 end
