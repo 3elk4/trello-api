@@ -5,23 +5,48 @@ class BoardController < ApplicationController
         tables = current_user.tables
         map = HashWithIndifferentAccess.new
         tables.each do |elem|
-            map[elem.id] = {elem.name}
+            map[elem.id] = elem.to_json
         end
         render json: {tables: map}, status: 200
     end
 
     def show
-        table = current_user.tables.find(params[:id]) # todo: what if params == null?
-        render json: {table: JSON.parse(table)}, status: 200
+        ensure_params_exists
+        table = current_user.tables.find(params[:id])
+
+        render json: {table: table.to_json}, status: 200
     end
 
     def create
-        table = Table.create!(name)
+        ensure_params_exists
+        Table.create!(board_params.to_h) #todo: coś podziałaś z parametrami
+
+        render json: {success: "Board created successfully!"}, status: 200
     end
 
-    def update
+    def edit
+        ensure_params_exists
+        table = current_user.tables.find(params[:id])
+        table.update(dog_params)
+
+        render json: {success: "Board updated successfully!"}, status: 200
     end
 
     def delete
+        ensure_params_exists
+        table = current_user.tables.find(params[:id])
+        table.delete
+
+        render json: {success: "Board deleted successfully!"}, status: 200
+    end
+
+    private
+
+    def board_params
+        params.require([:name, :is_public, :user_id])
+    end
+
+    def ensure_params_exists
+        render json: {error: "Luck of board parameters!"}, status: 400 unless params
     end
 end
