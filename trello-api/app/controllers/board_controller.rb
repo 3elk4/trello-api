@@ -47,6 +47,6 @@ class BoardController < ApplicationController
     end
 
     def ensure_params_exists
-        render json: {error: "Luck of board parameters!"}, status: 400 unless params
+        render json: {error: "Lack of board parameters!"}, status: 400 unless params
     end
 end
