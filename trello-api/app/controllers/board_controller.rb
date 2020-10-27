@@ -43,7 +43,7 @@ class BoardController < ApplicationController
     private
 
     def board_params
-        params.permit(:name, :is_public, :user_id)
+        params.merge(user_id: current_user.id).permit(:name, :is_public, :user_id)
     end
 
     def ensure_params_exists
