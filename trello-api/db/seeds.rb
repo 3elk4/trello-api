@@ -8,6 +8,6 @@
 
 user = User.create!(username: "geralt", password: "zaraza")
 
-board1 = Table.create!(name: "Sample board", is_public: "true", user_id: user.id)
-board1 = Table.create!(name: "Another sample board", is_public: "false", user_id: user.id)
+board1 = Board.create!(name: "Sample board", is_public: "true", user_id: user.id)
+board1 = Board.create!(name: "Another sample board", is_public: "false", user_id: user.id)
 

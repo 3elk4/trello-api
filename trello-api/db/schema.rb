@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_27_084727) do
+ActiveRecord::Schema.define(version: 2020_11_02_174756) do
+
+  create_table "boards", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_public", default: false, null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.index ["user_id"], name: "index_boards_on_user_id"
+  end
 
   create_table "cards", force: :cascade do |t|
     t.string "name"
@@ -28,15 +37,6 @@ ActiveRecord::Schema.define(version: 2020_10_27_084727) do
     t.index ["table_id"], name: "index_lists_on_table_id"
   end
 
-  create_table "tables", force: :cascade do |t|
-    t.string "name"
-    t.boolean "is_public", default: false, null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "user_id"
-    t.index ["user_id"], name: "index_tables_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2020_10_27_084727) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "boards", "users"
   add_foreign_key "cards", "lists"
-  add_foreign_key "lists", "tables"
-  add_foreign_key "tables", "users"
+  add_foreign_key "lists", "boards", column: "table_id"
 end

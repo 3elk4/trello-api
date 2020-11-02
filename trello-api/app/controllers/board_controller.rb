@@ -2,40 +2,39 @@ class BoardController < ApplicationController
     before_action :authenticate_request
 
     def index
-        tables = current_user.tables
         map = HashWithIndifferentAccess.new
-        tables.each do |elem|
+        current_user.boards.each do |elem|
             map[elem.id] = elem.to_json
         end
-        render json: {tables: map}, status: 200
+        render json: {boards: map}, status: 200
     end
 
     def get
         ensure_params_exists
-        table = current_user.tables.find(params[:id])
+        board = current_user.boards.find(params[:id])
 
-        render json: {table: table.to_json}, status: 200
+        render json: {board: board.to_json}, status: 200
     end
 
     def create
         ensure_params_exists
-        Table.create!(board_params)
+        Board.create!(board_params)
 
         render json: {success: "Board created successfully!"}, status: 200
     end
 
     def edit
         ensure_params_exists
-        table = current_user.tables.find(params[:id])
-        table.update(board_params)
+        board = current_user.boards.find(params[:id])
+        board.update(board_params)
 
         render json: {success: "Board updated successfully!"}, status: 200
     end
 
     def delete
         ensure_params_exists
-        table = current_user.tables.find(params[:id])
-        table.delete
+        board = current_user.boards.find(params[:id])
+        board.delete
 
         render json: {success: "Board deleted successfully!"}, status: 200
     end
