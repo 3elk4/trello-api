@@ -1,5 +1,5 @@
 class BoardController < ApplicationController
-    before_action :authenticate_request
+    before_action :authorize_request
 
     def index
         map = HashWithIndifferentAccess.new
