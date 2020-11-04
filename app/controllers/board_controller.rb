@@ -34,24 +34,28 @@ class BoardController < ApplicationController
     def delete
         ensure_params_exists
         board = current_user.boards.find(params[:id])
+        render json {error: "Cannot delete unarchived board!"}, status: 403 unless board.archiving_date
         board.delete
-
         render json: {success: "Board deleted successfully!"}, status: 200
     end
 
     def archive
-        ensure_params_exists
-        board = current_user.boards.find(params[:id])
-        board.archiving_date = DateTime.now
-        board.save
-        render json: {success: "Board archived successfully"}, status: 200
+        update_archived_board(DateTime.now)
     end
 
     def restore
-
+        update_archived_board(nil)
     end
 
     private
+
+    def update_archived_board(newdate)
+        ensure_params_exists
+        board = current_user.boards.fins(params[:id])
+        board.archiving_date = newdate
+        board.save
+        render json: {success: "Board restored successfully"}, status: 200
+    end
 
     def board_params
         params.merge(user_id: current_user.id).permit(:name, :is_public, :user_id, :archiving_date)
