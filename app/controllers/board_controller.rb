@@ -34,7 +34,7 @@ class BoardController < ApplicationController
     def delete
         ensure_params_exists
         board = current_user.boards.find(params[:id])
-        if board.archiving_date.nil? then
+        unless board.archiving_date.nil? then
             board.delete
             render json: {success: "Board deleted successfully!"}, status: 200
         else
