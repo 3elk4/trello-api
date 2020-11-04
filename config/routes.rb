@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   post 'create_board', to: 'board#create'
   post 'edit_board', to: 'board#edit'
   post 'delete_board', to: 'board#delete'
+  post 'archive_board', to: 'board#archive'
   get 'get_board', to: 'board#get'
 end

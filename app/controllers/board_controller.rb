@@ -39,10 +39,22 @@ class BoardController < ApplicationController
         render json: {success: "Board deleted successfully!"}, status: 200
     end
 
+    def archive
+        ensure_params_exists
+        board = current_user.boards.find(params[:id])
+        board.archiving_date = DateTime.now
+        board.save
+        render json: {success: "Board archived successfully"}, status: 200
+    end
+
+    def restore
+
+    end
+
     private
 
     def board_params
-        params.merge(user_id: current_user.id).permit(:name, :is_public, :user_id)
+        params.merge(user_id: current_user.id).permit(:name, :is_public, :user_id, :archiving_date)
     end
 
     def ensure_params_exists
