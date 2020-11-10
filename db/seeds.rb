@@ -19,3 +19,8 @@ list_board2 = List.create!(name: "test list 2", board_id: board2.id)
 
 archivedboard_list1 = List.create!(name: "archived1", board_id: archived1.id)
 archivedboard_list2 = List.create!(name: "archived2", board_id: archived2.id)
+
+card1 = Card.create!(name: "Test card 1", list_id: list_board1.id)
+card2 = Card.create!(name: "Test card 2", list_id: list_board2.id)
+card3 = Card.create!(name: "Test archived card 1", list_id: archivedboard_list1.id)
+card4 = Card.create!(name: "Test archived card 2", list_id: archivedboard_list2.id)
