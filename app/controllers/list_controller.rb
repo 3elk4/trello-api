@@ -26,16 +26,24 @@ class ListController < ApplicationController
 
     def edit
         ensure_params_exist
+        target_list = List.find(params[:id])
+        target_list.update(list_params)
+
+        render json: {success: "List updated successfully"}, status: 200
     end
 
     def delete
         ensure_params_exist
+        target_list = List.find(params[:id])
+        target_list.delete
+
+        render json: {success: "Successfully deleted the list"}, status: 200
     end
 
     private 
 
     def list_params
-        params.permit(:name, :board_id)
+        params.permit(:id, :name, :board_id)
     end
 
     def ensure_params_exist
