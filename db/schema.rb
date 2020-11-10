@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_183859) do
+ActiveRecord::Schema.define(version: 2020_11_10_121024) do
 
   create_table "boards", force: :cascade do |t|
     t.string "name"
@@ -34,8 +34,8 @@ ActiveRecord::Schema.define(version: 2020_11_02_183859) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "table_id"
-    t.index ["table_id"], name: "index_lists_on_table_id"
+    t.integer "board_id"
+    t.index ["board_id"], name: "index_lists_on_board_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,9 +43,10 @@ ActiveRecord::Schema.define(version: 2020_11_02_183859) do
     t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["username"], name: "index_users_on_username", unique: true
   end
 
   add_foreign_key "boards", "users"
   add_foreign_key "cards", "lists"
-  add_foreign_key "lists", "boards", column: "table_id"
+  add_foreign_key "lists", "boards"
 end

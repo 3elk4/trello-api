@@ -3,7 +3,7 @@ class BoardController < ApplicationController
 
     def index
         map = HashWithIndifferentAccess.new
-        current_user.boards.each do |elem|
+        current_user.boards.order(:archiving_date, :asc).each do |elem|
             map[elem.id] = elem.to_json
         end
         render json: {boards: map}, status: 200
@@ -20,7 +20,7 @@ class BoardController < ApplicationController
         ensure_params_exists
         Board.create!(board_params)
 
-        render json: {success: "Board created successfully!"}, status: 200
+        render json: {success: "Board created successfully!"}, status: 201
     end
 
     def edit
