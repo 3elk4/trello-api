@@ -20,7 +20,7 @@ class BoardController < ApplicationController
         ensure_params_exists
         Board.create!(board_params)
 
-        render json: {success: "Board created successfully!"}, status: 200
+        render json: {success: "Board created successfully!"}, status: 201
     end
 
     def edit

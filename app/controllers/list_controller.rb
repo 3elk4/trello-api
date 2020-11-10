@@ -8,7 +8,7 @@ class ListController < ApplicationController
         ensure_params_exist
         List.create!(list_params)
 
-        render json: {success: "List created successfully!"}, status: 200
+        render json: {success: "List created successfully!"}, status: 201
     end
 
     def get
