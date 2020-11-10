@@ -20,4 +20,9 @@ Rails.application.routes.draw do
   post 'delete_list', to: 'list#delete'
   post 'edit_list', to: 'list#edit'
 
+  #cards CRUD
+  post 'create_card', to: 'card#create'
+  get 'get_card/:board_id/:list_id', to: 'card#get'
+  post 'delete_card', to: 'card#delete'
+  post 'edit_card', to: 'card#edit'
 end
