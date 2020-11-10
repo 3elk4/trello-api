@@ -43,7 +43,7 @@ class ListController < ApplicationController
     private 
 
     def list_params
-        params.permit(:id, :name, :board_id)
+        params.permit(:name, :board_id)
     end
 
     def ensure_params_exist
