@@ -13,8 +13,7 @@ class ListController < ApplicationController
 
     def get
         ensure_params_exist
-        board_id = params[:board_id]
-        lists = List.where(board_id: board_id)
+        lists = current_user.boards.find(params[:board_id]).lists
         
         list_jsons = []
         lists.each do |l|
@@ -26,7 +25,7 @@ class ListController < ApplicationController
 
     def edit
         ensure_params_exist
-        target_list = List.find(params[:id])
+        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
         target_list.update(list_params)
 
         render json: {success: "List updated successfully"}, status: 200
@@ -34,7 +33,7 @@ class ListController < ApplicationController
 
     def delete
         ensure_params_exist
-        target_list = List.find(params[:id])
+        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
         target_list.delete
 
         render json: {success: "Successfully deleted the list"}, status: 200
