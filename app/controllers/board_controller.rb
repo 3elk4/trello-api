@@ -3,7 +3,7 @@ class BoardController < ApplicationController
 
     def index
         map = HashWithIndifferentAccess.new
-        current_user.boards.order(:archiving_date, :asc).each do |elem|
+        current_user.boards.order(:archiving_date).each do |elem|
             map[elem.id] = elem.to_json
         end
         render json: {boards: map}, status: 200
