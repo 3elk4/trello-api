@@ -17,6 +17,13 @@ class UserController < ApplicationController
         render json: {success: "updated user successfully"}, status: 200
     end
 
+    def get
+        ensure_params_exist 
+        target_user = User.find(params[:id])
+
+        render json: {username: target_user[:username], avatar_url: target_user.get_avatar_url}, status: 200
+    end
+
     def delete 
         ensure_params_exist
         target_user = User.find(params[:id])
