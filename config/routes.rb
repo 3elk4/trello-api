@@ -25,4 +25,9 @@ Rails.application.routes.draw do
   get 'get_card/:board_id/:list_id', to: 'card#get'
   post 'delete_card', to: 'card#delete'
   post 'edit_card', to: 'card#edit'
+
+  #users 
+  post 'create_user', to: 'user#create'
+  post 'delete_user', to: 'user#delete'
+  post 'edit_user', to: 'user#update'
 end
