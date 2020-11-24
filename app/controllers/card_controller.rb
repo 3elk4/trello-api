@@ -24,7 +24,7 @@ class CardController < ApplicationController
 
     def edit
         ensure_params_exist
-        target_card = get_cards.find(params[:card_id])
+        target_card = get_cards.find(params[:id])
         target_card.update(card_params)
 
         render json: {success: "Card updated successfully"}, status: 200
@@ -32,20 +32,37 @@ class CardController < ApplicationController
 
     def delete
         ensure_params_exist
-        target_card = get_cards.find(params[:card_id])
+        target_card = get_cards.find(params[:id])
         target_card.delete
 
         render json: {success: "Successfully deleted the card"}, status: 200
     end
 
+    def archive
+        update_archived_card(DateTime.now)
+    end
+
+    def restore
+        update_archived_card(nil)
+    end
+
     private 
+
+    def update_archived_card(new_date)
+        ensure_params_exist
+        target_card = get_cards.find(params[:id])
+        target_card.archiving_date = new_date
+        target_card.save
+
+        render json: {success: "Operation completed successfully"}, status: 200
+    end
 
     def get_cards
         current_user.boards.find(params[:board_id]).lists.find(params[:list_id]).cards
     end
 
     def card_params
-        params.permit(:name, :list_id)
+        params.permit(:name, :description, :list_id)
     end
 
     def ensure_params_exist
