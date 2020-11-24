@@ -2,18 +2,14 @@ class BoardController < ApplicationController
     before_action :authorize_request
 
     def index
-        map = HashWithIndifferentAccess.new
-        current_user.boards.order(:archiving_date).each do |elem|
-            map[elem.id] = elem.to_json
-        end
-        render json: {boards: map}, status: 200
+        render json: {boards: current_user.boards.order(:archiving_date)}, adapter: :json, status: 200
     end
 
     def get
         ensure_params_exists
         board = current_user.boards.find(params[:id])
 
-        render json: {board: board.to_json}, status: 200
+        render json: {board: board.to_json}, adapter: :json, status: 200
     end
 
     def create
