@@ -31,6 +31,14 @@ class ListController < ApplicationController
         render json: {success: "List updated successfully"}, status: 200
     end
 
+    def archive
+        update_archived_list(DateTime.now)
+    end
+
+    def restore
+        update_archived_list(nil)
+    end
+
     def delete
         ensure_params_exist
         target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
@@ -40,6 +48,15 @@ class ListController < ApplicationController
     end
 
     private 
+
+    def update_archived_list(new_date)
+        ensure_params_exist
+        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
+        target_list.archiving_date = new_date
+        target_list.save
+
+        render json: {success: "Operation completed successfully"}, status: 200
+    end
 
     def list_params
         params.permit(:name, :board_id)
