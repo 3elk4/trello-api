@@ -13,6 +13,7 @@ class UserController < ApplicationController
         ensure_params_exist
         target_user = User.find(params[:id])
         target_user.update(user_params)
+        target_user.attach(params[:avatar])
 
         render json: {success: "updated user successfully"}, status: 200
     end
@@ -39,7 +40,7 @@ class UserController < ApplicationController
     private
 
     def user_params
-        params.permit(:username, :password_digest, :avatar)
+        params.permit(:username, :password, :avatar)
     end
 
     def ensure_params_exist
