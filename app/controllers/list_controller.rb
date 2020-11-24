@@ -31,6 +31,15 @@ class ListController < ApplicationController
         render json: {success: "List updated successfully"}, status: 200
     end
 
+    def move
+        ensure_params_exist
+        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
+        target_list[:board_id] = params[:new_board_id]
+        target_list.save
+
+        render json: {success: "List moved successfully"}, status: 200
+    end
+
     def archive
         update_archived_list(DateTime.now)
     end

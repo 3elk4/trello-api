@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   post 'edit_list', to: 'list#edit'
   post 'archive_list', to: 'list#archive'
   post 'restore_list', to: 'list#restore'
+  post 'move_list', to: 'list#move'
 
   #cards CRUD
   post 'create_card', to: 'card#create'
