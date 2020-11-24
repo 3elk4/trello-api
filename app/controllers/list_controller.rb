@@ -42,14 +42,12 @@ class ListController < ApplicationController
     def delete
         ensure_params_exist
         target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
-        unless list.archiving_date.nil? then
+        unless target_list.archiving_date.nil? then
             target_list.delete
             render json: {success: "List deleted successfully!"}, status: 200
         else
             render json: {success: "Cannot delete unarchived list!"}, status: 403
         end
-
-        render json: {success: "Successfully deleted the list"}, status: 200
     end
 
     private 
