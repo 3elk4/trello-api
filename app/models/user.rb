@@ -7,6 +7,6 @@ class User < ApplicationRecord
     has_one_attached :avatar
 
     def get_avatar_url
-       url_for(self.avatar) 
+        url_for(self.avatar) 
     end
 end

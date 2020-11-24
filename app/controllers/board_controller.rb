@@ -27,6 +27,7 @@ class BoardController < ApplicationController
         ensure_params_exists
         board = current_user.boards.find(params[:id])
         board.update(board_params)
+        board.attach(params[:background])
 
         render json: {success: "Board updated successfully!"}, status: 200
     end
@@ -35,6 +36,9 @@ class BoardController < ApplicationController
         ensure_params_exists
         board = current_user.boards.find(params[:id])
         unless board.archiving_date.nil? then
+            if board.background.attached? then
+                board.background.purge
+            end
             board.delete
             render json: {success: "Board deleted successfully!"}, status: 200
         else
@@ -52,16 +56,16 @@ class BoardController < ApplicationController
 
     private
 
-    def update_archived_board(newdate)
+    def update_archived_board(new_date)
         ensure_params_exists
         board = current_user.boards.find(params[:id])
-        board.archiving_date = newdate
+        board.archiving_date = new_date
         board.save
         render json: {success: "Operation completed successfully"}, status: 200
     end
 
     def board_params
-        params.merge(user_id: current_user.id).permit(:name, :is_public, :user_id, :archiving_date)
+        params.merge(user_id: current_user.id).permit(:name, :is_public, :user_id, :archiving_date, :background)
     end
 
     def ensure_params_exists
