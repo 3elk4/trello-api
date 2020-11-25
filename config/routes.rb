@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   #cards CRUD
   post 'create_card', to: 'card#create'
   get 'get_card/:board_id/:list_id', to: 'card#get'
+  get 'get_board_cards/:board_id', to: 'card#get_all'
   post 'delete_card', to: 'card#delete'
   post 'edit_card', to: 'card#edit'
   post 'archive_card', to: 'card#archive'

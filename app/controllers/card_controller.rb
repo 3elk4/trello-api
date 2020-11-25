@@ -22,6 +22,18 @@ class CardController < ApplicationController
         render json: {cards: cards_json}, status: 200
     end
 
+    def get_all
+        ensure_params_exist
+        cards = get_all_cards
+        
+        cards_json = []
+        cards.each do |c|
+            cards_json.append(c.to_json)
+        end
+
+        render json: {cards: cards_json}, status: 200
+    end
+
     def edit
         ensure_params_exist
         target_card = get_cards.find(params[:id])
@@ -59,6 +71,10 @@ class CardController < ApplicationController
 
     def get_cards
         current_user.boards.find(params[:board_id]).lists.find(params[:list_id]).cards
+    end
+
+    def get_all_cards
+        cards = current_user.boards.find(params[:board_id]).lists.flat_map { |e| e.cards }
     end
 
     def card_params
