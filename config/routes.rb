@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'delete_board', to: 'board#delete'
   post 'archive_board', to: 'board#archive'
   post 'restore_board', to: 'board#restore'
-  get 'get_board', to: 'board#get'
+  get 'get_board/:id', to: 'board#get'
 
   #lists CRUD
   post 'create_list', to: 'list#create'
