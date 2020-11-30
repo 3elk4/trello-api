@@ -13,19 +13,12 @@ class ListController < ApplicationController
 
     def get
         ensure_params_exist
-        lists = current_user.boards.find(params[:board_id]).lists
-        
-        list_jsons = []
-        lists.each do |l|
-            list_jsons.append(l.to_json)
-        end
-        
-        render json: {lists: list_jsons}, status: 200
+        render json: {lists: get_board_lists.map {|l| l.to_json}}, status: 200
     end
 
     def edit
         ensure_params_exist
-        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
+        target_list = get_board_lists.find(params[:id])
         target_list.update(list_params)
 
         render json: {success: "List updated successfully"}, status: 200
@@ -33,7 +26,7 @@ class ListController < ApplicationController
 
     def move
         ensure_params_exist
-        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
+        target_list = get_board_lists.find(params[:id])
         target_list[:board_id] = params[:new_board_id]
         target_list.save
 
@@ -50,7 +43,7 @@ class ListController < ApplicationController
 
     def delete
         ensure_params_exist
-        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
+        target_list = get_board_lists.find(params[:id])
         unless target_list.archiving_date.nil? then
             target_list.delete
             render json: {success: "List deleted successfully!"}, status: 200
@@ -63,11 +56,15 @@ class ListController < ApplicationController
 
     def update_archived_list(new_date)
         ensure_params_exist
-        target_list = current_user.boards.find(params[:board_id]).lists.find(params[:id])
+        target_list = get_board_lists.find(params[:id])
         target_list.archiving_date = new_date
         target_list.save
 
         render json: {success: "Operation completed successfully"}, status: 200
+    end
+
+    def get_board_lists
+        current_user.boards.find(params[:board_id]).lists
     end
 
     def list_params

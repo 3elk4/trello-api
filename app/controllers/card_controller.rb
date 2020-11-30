@@ -12,26 +12,12 @@ class CardController < ApplicationController
 
     def get
         ensure_params_exist
-        cards = get_cards
-        
-        cards_json = []
-        cards.each do |c|
-            cards_json.append(c.to_json)
-        end
-        
-        render json: {cards: cards_json}, status: 200
+        render json: {cards: get_cards.map {|c| c.to_json}}, status: 200
     end
 
     def get_all
         ensure_params_exist
-        cards = get_all_cards
-        
-        cards_json = []
-        cards.each do |c|
-            cards_json.append(c.to_json)
-        end
-
-        render json: {cards: cards_json}, status: 200
+        render json: {cards: get_all_cards.map {|c| c.to_json}}, status: 200
     end
 
     def edit
