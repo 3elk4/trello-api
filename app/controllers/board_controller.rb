@@ -7,7 +7,7 @@ class BoardController < ApplicationController
 
     def get
         ensure_params_exists
-        board = current_user.boards.find(params[:id])
+        board = find_board(params[:id])
 
         render json: {board: board.to_json}, adapter: :json, status: 200
     end
@@ -21,7 +21,7 @@ class BoardController < ApplicationController
 
     def edit
         ensure_params_exists
-        board = current_user.boards.find(params[:id])
+        board = find_board(params[:id])
         board.update(board_params)
         board.attach(params[:background])
 
@@ -30,7 +30,7 @@ class BoardController < ApplicationController
 
     def delete
         ensure_params_exists
-        board = current_user.boards.find(params[:id])
+        board = find_board(params[:id])
         unless board.archiving_date.nil? then
             if board.background.attached? then
                 board.background.purge
@@ -52,9 +52,13 @@ class BoardController < ApplicationController
 
     private
 
+    def find_board(id)
+        current_user.boards.find(id)
+    end
+
     def update_archived_board(new_date)
         ensure_params_exists
-        board = current_user.boards.find(params[:id])
+        board = find_board(params[:id])
         board.archiving_date = new_date
         board.save
         render json: {success: "Operation completed successfully"}, status: 200
