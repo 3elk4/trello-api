@@ -58,7 +58,7 @@ class BoardController < ApplicationController
 
     def update_archived_board(new_date)
         ensure_params_exists
-        board = current_user.boards.find(params[:id])
+        board = find_board(params[:id])
         board.archiving_date = new_date
         board.save
         render json: {success: "Operation completed successfully"}, status: 200
