@@ -15,6 +15,11 @@ class CardController < ApplicationController
         render json: {cards: get_cards.map {|c| c.to_json}}, status: 200
     end
 
+    def get_card_name
+        ensure_params_exist
+        render json: {name: get_cards.find(params[:id]).name}, status: 200
+    end
+
     def get_all
         ensure_params_exist
         render json: {cards: get_all_cards.map {|c| c.to_json}}, status: 200

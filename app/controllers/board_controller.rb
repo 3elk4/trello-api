@@ -12,6 +12,11 @@ class BoardController < ApplicationController
         render json: {board: board.to_json}, adapter: :json, status: 200
     end
 
+    def get_board_name
+        ensure_params_exists
+        render json: {name: find_board(params[:id]).name}, adapter: :json, status: 200
+    end
+
     def create
         ensure_params_exists
         Board.create!(board_params)
