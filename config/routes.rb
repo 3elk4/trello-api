@@ -13,10 +13,12 @@ Rails.application.routes.draw do
   post 'archive_board', to: 'board#archive'
   post 'restore_board', to: 'board#restore'
   get 'get_board/:id', to: 'board#get'
+  get 'get_board_name/:id', to: 'board#get_board_name'
 
   #lists CRUD
   post 'create_list', to: 'list#create'
   get 'get_list/:board_id', to: 'list#get'
+  get 'get_list_name/:board_id', to: 'list#get_list_name'
   post 'delete_list', to: 'list#delete'
   post 'edit_list', to: 'list#edit'
   post 'archive_list', to: 'list#archive'
@@ -27,6 +29,7 @@ Rails.application.routes.draw do
   post 'create_card', to: 'card#create'
   get 'get_card/:board_id/:list_id', to: 'card#get'
   get 'get_board_cards/:board_id', to: 'card#get_all'
+  get 'get_card_name/:board_id/:list_id', to: 'card#get_card_name'
   post 'delete_card', to: 'card#delete'
   post 'edit_card', to: 'card#edit'
   post 'archive_card', to: 'card#archive'
@@ -37,4 +40,5 @@ Rails.application.routes.draw do
   post 'delete_user', to: 'user#delete'
   post 'edit_user', to: 'user#update'
   get 'get_user/:id', to: 'user#get'
+  delete 'logout', to: 'user#logout'
 end

@@ -36,6 +36,12 @@ class UserController < ApplicationController
         render json: {success: "deleted user successfully"}, status: 200
     end
 
+    def logout
+        token = request.headers["Authorization"].split(" ").last
+        BlacklistedToken.create!(token: token, user_id: @current_user.id)
+
+        render json: {success: "logged out successfully"}
+    end
 
     private
 

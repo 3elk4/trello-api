@@ -16,6 +16,11 @@ class ListController < ApplicationController
         render json: {lists: get_board_lists.map {|l| l.to_json}}, status: 200
     end
 
+    def get_list_name
+        ensure_params_exist
+        render json: {name: get_board_lists.find(params[:id]).name}, status: 200
+    end
+
     def edit
         ensure_params_exist
         target_list = get_board_lists.find(params[:id])

@@ -18,7 +18,13 @@ class AuthorizeRequest prepend SimpleCommand
     end
 
     def decoded_token
-        @decoded_token ||= JsonWebToken.decode(http_auth_reader)
+        passed_token = http_auth_reader
+        blacklisted = BlacklistedToken.find_by_token(passed_token)
+        if blacklisted.nil? then
+            @decoded_token ||= JsonWebToken.decode(passed_token)
+        else
+            errors.add(:nonauthorized, "ur not logged in, go away u poor peasant")
+        end
     end
 
     def http_auth_reader
