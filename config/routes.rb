@@ -37,4 +37,5 @@ Rails.application.routes.draw do
   post 'delete_user', to: 'user#delete'
   post 'edit_user', to: 'user#update'
   get 'get_user/:id', to: 'user#get'
+  delete 'logout', to: 'user#logout'
 end

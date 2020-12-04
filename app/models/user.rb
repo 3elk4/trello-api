@@ -4,9 +4,22 @@ class User < ApplicationRecord
 
     has_secure_password
     has_many :boards
+    has_many :blacklisted_tokens, dependent: :delete_all
     has_one_attached :avatar
+
+    PASSWORD_FORMAT = /\A
+        (?=.{8,})
+        (?=.*\d)
+        (?=.*[a-z])
+        (?=.*[A-Z])
+        (?=.*[[:^alnum:]])
+    /x
+
+    validates :password, presence: true, length: {in: 8..20}, format: {with: PASSWORD_FORMAT}, on: :create
 
     def get_avatar_url
         url_for(self.avatar) 
     end
+
+    
 end
