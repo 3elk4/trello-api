@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_145222) do
+ActiveRecord::Schema.define(version: 2020_12_04_163621) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 2020_12_04_145222) do
     t.integer "list_id"
     t.string "description", default: ""
     t.datetime "archiving_date"
+    t.datetime "deadline"
     t.index ["list_id"], name: "index_cards_on_list_id"
   end
 
