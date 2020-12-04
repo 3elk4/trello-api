@@ -20,6 +20,12 @@ class CardController < ApplicationController
         render json: {name: get_cards.find(params[:id]).name}, status: 200
     end
 
+    def get_card_deadline
+        ensure_params_exist
+        target_deadline = get_cards.find(params[:id]).deadline
+        render json: {deadline: target_deadline.nil? ? nil : target_deadline.to_json}, status: 200
+    end
+
     def get_all
         ensure_params_exist
         render json: {cards: get_all_cards.map {|c| c.to_json}}, status: 200
@@ -69,7 +75,7 @@ class CardController < ApplicationController
     end
 
     def card_params
-        params.permit(:name, :description, :list_id)
+        params.permit(:name, :description, :list_id, :deadline)
     end
 
     def ensure_params_exist

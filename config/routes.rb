@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   get 'get_card/:board_id/:list_id', to: 'card#get'
   get 'get_board_cards/:board_id', to: 'card#get_all'
   get 'get_card_name/:board_id/:list_id', to: 'card#get_card_name'
+  get 'get_card_deadline/:board_id/:list_id/:id', to: 'card#get_card_deadline'
   post 'delete_card', to: 'card#delete'
   post 'edit_card', to: 'card#edit'
   post 'archive_card', to: 'card#archive'
