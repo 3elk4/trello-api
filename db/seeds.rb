@@ -24,3 +24,13 @@ card1 = Card.create!(name: "Test card 1", list_id: list_board1.id)
 card2 = Card.create!(name: "Test card 2", list_id: list_board2.id)
 card3 = Card.create!(name: "Test archived card 1", list_id: archivedboard_list1.id)
 card4 = Card.create!(name: "Test archived card 2", list_id: archivedboard_list2.id)
+
+#comments
+comment1 = CardComment.create!(content: "my first comment ever, yay", card_id: card1.id, user_id: user.id)
+comment2 = CardComment.create!(content: "I'm blue Da ba dee da ba di", card_id: card1.id, user_id: user.id)
+comment3 = CardComment.create!(content: "Eh, its just a fleshwound.", card_id: card2.id, user_id: user.id)
+comment4 = CardComment.create!(content: "A jak pan jezus powiedział?", card_id: card2.id, user_id: user.id)
+comment5 = CardComment.create!(content: "Tak jak pan jezus powiedział", card_id: card3.id, user_id: user.id)
+comment6 = CardComment.create!(content: "No jak mi dają to jem", card_id: card3.id, user_id: user.id)
+comment7 = CardComment.create!(content: "Ravioli ravioli give me the death I deservioli", card_id: card4.id, user_id: user.id)
+comment8 = CardComment.create!(content: "How do you do fellow kids?", card_id: card4.id, user_id: user.id)

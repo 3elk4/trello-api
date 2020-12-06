@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_132821) do
+ActiveRecord::Schema.define(version: 2020_12_06_134304) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -51,6 +51,14 @@ ActiveRecord::Schema.define(version: 2020_12_06_132821) do
     t.index ["user_id"], name: "index_boards_on_user_id"
   end
 
+  create_table "card_comments", force: :cascade do |t|
+    t.text "content"
+    t.integer "card_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_card_comments_on_card_id"
+  end
+
   create_table "cards", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -83,6 +91,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_132821) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "blacklisted_tokens", "users"
   add_foreign_key "boards", "users"
+  add_foreign_key "card_comments", "cards"
   add_foreign_key "cards", "lists"
   add_foreign_key "lists", "boards"
 end
