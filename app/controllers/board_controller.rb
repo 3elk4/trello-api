@@ -9,7 +9,7 @@ class BoardController < ApplicationController
         ensure_params_exists
         board = find_board(params[:id])
 
-        render json: {board: board.to_json}, adapter: :json, status: 200
+        render json: board, adapter: :json, status: 200
     end
 
     def get_board_name
@@ -28,7 +28,7 @@ class BoardController < ApplicationController
         ensure_params_exists
         board = find_board(params[:id])
         board.update(board_params)
-        board.attach(params[:background])
+        board.background.attach(params[:background])
 
         render json: {success: "Board updated successfully!"}, status: 200
     end

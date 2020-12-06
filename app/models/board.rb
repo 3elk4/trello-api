@@ -7,6 +7,6 @@ class Board < ApplicationRecord
     has_one_attached :background
 
     def get_background_url
-        url_for(self.background)
+      rails_blob_path(self.background, only_path: true)
     end
 end
