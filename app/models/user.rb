@@ -18,7 +18,7 @@ class User < ApplicationRecord
     validates :password, presence: true, length: {in: 8..20}, format: {with: PASSWORD_FORMAT}, on: :create
 
     def get_avatar_url
-        url_for(self.avatar) 
+      rails_blob_path(self.avatar, only_path: true) 
     end
 
     

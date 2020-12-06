@@ -25,6 +25,13 @@ class UserController < ApplicationController
         render json: {username: target_user[:username], avatar_url: target_user.get_avatar_url}, status: 200
     end
 
+    def get_current
+      user = JsonWebToken.decode(request.headers["Authorization"].split(" ").last)
+      target_user = User.find(user[:user_id])
+
+      render json: {username: target_user[:username]}, status: 200
+    end
+
     def delete 
         ensure_params_exist
         target_user = User.find(params[:id])
