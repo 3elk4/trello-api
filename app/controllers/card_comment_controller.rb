@@ -38,7 +38,7 @@ class CardCommentController < ApplicationController
     end
 
     def comment_params
-        params.permit(:content, :card_id)
+        params.permit(:content, :card_id, :user_id)
     end
 
     def ensure_params_exist

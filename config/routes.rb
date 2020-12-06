@@ -41,7 +41,7 @@ Rails.application.routes.draw do
   post 'update_comment', to: 'card_comment#update'
   post 'delete_comment', to: 'card_comment#delete'
   get 'get_card_comment/:board_id/:list_id/:card_id/:id', to: 'card_comment#get'
-  get 'get_card_comments/:board_id/:list_id/:card_id/:id', to: 'card_comment#get_all'
+  get 'get_card_comments/:board_id/:list_id/:card_id/', to: 'card_comment#get_all'
   
   #users 
   post 'create_user', to: 'user#create'
