@@ -27,7 +27,7 @@ class CardCommentController < ApplicationController
     def delete
         ensure_params_exist
         get_target_card.card_comments.find(params[:id]).delete
-        
+
         render json: {success: "comment deleted successfully, sarge!"}
     end
 
@@ -38,7 +38,7 @@ class CardCommentController < ApplicationController
     end
 
     def comment_params
-        params.permit(:content, :card_id, :board_id, :list_id)
+        params.permit(:content, :card_id)
     end
 
     def ensure_params_exist
