@@ -75,7 +75,7 @@ class CardController < ApplicationController
     end
 
     def card_params
-        params.permit(:name, :description, :list_id, :deadline)
+        params.permit(:name, :description, :list_id, :deadline, :is_deadline_met)
     end
 
     def ensure_params_exist
