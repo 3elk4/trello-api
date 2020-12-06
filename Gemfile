@@ -60,3 +60,4 @@ gem 'simple_command'
 gem 'bcrypt'
 gem 'rack-cors'
 gem 'active_model_serializers'
+gem 'aws-sdk-s3', require: false
