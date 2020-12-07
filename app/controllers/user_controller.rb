@@ -13,7 +13,7 @@ class UserController < ApplicationController
         ensure_params_exist
         target_user = User.find(params[:id])
         target_user.update(user_params)
-        target_user.attach(params[:avatar])
+        target_user.avatar.attach(params[:avatar])
 
         render json: {success: "updated user successfully"}, status: 200
     end
@@ -29,7 +29,7 @@ class UserController < ApplicationController
       user = JsonWebToken.decode(request.headers["Authorization"].split(" ").last)
       target_user = User.find(user[:user_id])
 
-      render json: {username: target_user[:username]}, status: 200
+      render json: {id: target_user[:id], username: target_user[:username]}, status: 200
     end
 
     def delete 
