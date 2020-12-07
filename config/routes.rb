@@ -31,10 +31,19 @@ Rails.application.routes.draw do
   get 'get_board_cards/:board_id', to: 'card#get_all'
   get 'get_card_name/:board_id/:list_id', to: 'card#get_card_name'
   get 'get_card_deadline/:board_id/:list_id/:id', to: 'card#get_card_deadline'
+  get 'get_card_labels/:board_id/:list_id/:id', to: 'card#get_card_labels'
   post 'delete_card', to: 'card#delete'
   post 'edit_card', to: 'card#edit'
   post 'archive_card', to: 'card#archive'
   post 'restore_card', to: 'card#restore'
+
+  #label CRUD
+  get 'get_labels', to: 'label#get_all'
+
+  #card-label CRUD
+
+  post 'assign_label/:card_id/:label_id', to: 'cardlabel#assign_label'
+  post 'unassign_label/:card_id/:label_id', to: 'cardlabel#unassign_label'
 
   #card comments
   post 'create_comment', to: 'card_comment#create'

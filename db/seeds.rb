@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-user = User.create!(username: "geralt", password: "zaraza")
+user = User.create!(username: "geralt", password: "Zar@za!2137")
 
 board1 = Board.create!(name: "Sample board", is_public: "true", user_id: user.id)
 board2 = Board.create!(name: "Another sample board", is_public: "false", user_id: user.id)
@@ -34,3 +34,14 @@ comment5 = CardComment.create!(content: "Tak jak pan jezus powiedział", card_id
 comment6 = CardComment.create!(content: "No jak mi dają to jem", card_id: card3.id, user_id: user.id)
 comment7 = CardComment.create!(content: "Ravioli ravioli give me the death I deservioli", card_id: card4.id, user_id: user.id)
 comment8 = CardComment.create!(content: "How do you do fellow kids?", card_id: card4.id, user_id: user.id)
+
+#static labels
+label1 = Label.create!(name: "Very important")
+label2 = Label.create!(name: "Important")
+label3 = Label.create!(name: "Medium important")
+label4 = Label.create!(name: "Little important")
+
+CardsLabel.create!(card_id: card1.id, label_id: label1.id)
+CardsLabel.create!(card_id: card2.id, label_id: label2.id)
+CardsLabel.create!(card_id: card3.id, label_id: label3.id)
+CardsLabel.create!(card_id: card4.id, label_id: label4.id)
