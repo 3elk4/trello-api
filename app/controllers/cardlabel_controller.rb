@@ -1,6 +1,6 @@
 require 'json'
 
-class CardLabelController < ApplicationController
+class CardlabelController < ApplicationController
     before_action :authorize_request
 
     def assign_label
