@@ -42,8 +42,8 @@ Rails.application.routes.draw do
 
   #card-label CRUD
 
-  post 'assign_label', to: 'cardlabel#assign_label'
-  post 'unassign_label', to: 'cardlabel#unassign_label'
+  post 'assign_label', to: 'card_label#assign_label'
+  post 'unassign_label', to: 'card_label#unassign_label'
 
   #card comments
   post 'create_comment', to: 'card_comment#create'
