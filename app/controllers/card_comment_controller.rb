@@ -2,7 +2,8 @@ class CardCommentController < ApplicationController
 
     def create
         ensure_params_exist
-        CardComment.create!(comment_params)
+        user = JsonWebToken.decode(request.headers["Authorization"].split(" ").last)
+        CardComment.create!(comment_params.merge(user_id: user[:user_id]))
 
         render json: {success: "Comment created successfully"}, status: 200
     end
