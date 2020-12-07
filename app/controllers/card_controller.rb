@@ -26,6 +26,12 @@ class CardController < ApplicationController
         render json: {deadline: target_deadline.nil? ? nil : target_deadline.to_json}, status: 200
     end
 
+    def get_card_labels
+        ensure_params_exist
+        card_labels = get_cards.find(params[:id]).labels
+        render json: {labels: card_labels.nil? ? nil : card_labels.map {|cl| cl.to_json}}, status: 200
+    end
+
     def get_all
         ensure_params_exist
         render json: {cards: get_all_cards.map {|c| c.to_json}}, status: 200

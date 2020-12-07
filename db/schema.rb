@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_134304) do
+ActiveRecord::Schema.define(version: 2020_12_07_190620) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -56,7 +56,9 @@ ActiveRecord::Schema.define(version: 2020_12_06_134304) do
     t.integer "card_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
     t.index ["card_id"], name: "index_card_comments_on_card_id"
+    t.index ["user_id"], name: "index_card_comments_on_user_id"
   end
 
   create_table "cards", force: :cascade do |t|
@@ -69,6 +71,21 @@ ActiveRecord::Schema.define(version: 2020_12_06_134304) do
     t.datetime "deadline"
     t.boolean "is_deadline_met", default: false
     t.index ["list_id"], name: "index_cards_on_list_id"
+  end
+
+  create_table "cards_labels", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "label_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["card_id"], name: "index_cards_labels_on_card_id"
+    t.index ["label_id"], name: "index_cards_labels_on_label_id"
+  end
+
+  create_table "labels", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "lists", force: :cascade do |t|
@@ -90,8 +107,11 @@ ActiveRecord::Schema.define(version: 2020_12_06_134304) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "blacklisted_tokens", "users"
-  add_foreign_key "boards", "users"
+  add_foreign_key "boards", "users", on_delete: :cascade
   add_foreign_key "card_comments", "cards"
-  add_foreign_key "cards", "lists"
-  add_foreign_key "lists", "boards"
+  add_foreign_key "card_comments", "users"
+  add_foreign_key "cards", "lists", on_delete: :cascade
+  add_foreign_key "cards_labels", "cards"
+  add_foreign_key "cards_labels", "labels"
+  add_foreign_key "lists", "boards", on_delete: :cascade
 end
