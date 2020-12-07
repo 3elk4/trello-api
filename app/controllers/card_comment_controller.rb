@@ -10,12 +10,12 @@ class CardCommentController < ApplicationController
 
     def get_all
         ensure_params_exist
-        render json: {comments: get_target_card.card_comments.map {|cc| cc.to_json}}, status: 200
+        render json: get_target_card.card_comments, adapter: :json, each_serializer: CardCommentSerializer, status: 200
     end
 
     def get
         ensure_params_exist
-        render json: {comment: get_target_card.card_comments.find(params[:id]).to_json}, status: 200
+        render json: get_target_card.card_comments.find(params[:id]), adapter: :json, serializer: CardCommentSerializer, status: 200
     end
 
     def update
