@@ -59,4 +59,8 @@ Rails.application.routes.draw do
   get 'get_user/:id', to: 'user#get'
   get 'get_current_user', to: 'user#get_current'
   delete 'logout', to: 'user#logout'
+
+  #history entries
+  post 'create_history_entry', to: 'history_entry#create'
+  get 'get_history_entries/:board_id', to: 'history_entry#get_all'
 end
