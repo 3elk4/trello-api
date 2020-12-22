@@ -61,5 +61,6 @@ Rails.application.routes.draw do
   delete 'logout', to: 'user#logout'
 
   #history entries
-  
+  post 'create_history_entry', to: 'history_entry#create'
+  get 'get_history_entries/:board_id', to: 'history_entry#get_all'
 end

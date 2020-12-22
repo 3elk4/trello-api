@@ -3,6 +3,7 @@ class Board < ApplicationRecord
     include Rails.application.routes.url_helpers
 
     has_many :lists, dependent: :destroy
+    has_many :history_entries, dependent: :destroy
     belongs_to :user
     has_one_attached :background
 
