@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post 'archive_list', to: 'list#archive'
   post 'restore_list', to: 'list#restore'
   post 'move_list', to: 'list#move'
+  post 'reoder_lists', to: 'list#reorder'
 
   #cards CRUD
   post 'create_card', to: 'card#create'

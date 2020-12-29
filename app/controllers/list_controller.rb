@@ -13,7 +13,7 @@ class ListController < ApplicationController
 
     def get
         ensure_params_exist
-        render json: {lists: get_board_lists.map {|l| l.to_json}}, status: 200
+        render json: {lists: get_board_lists.order(:position).map {|l| l.to_json}}, status: 200
     end
 
     def get_list_name
@@ -36,6 +36,17 @@ class ListController < ApplicationController
         target_list.save
 
         render json: {success: "List moved successfully"}, status: 200
+    end
+
+    def reorder
+        request_json = params.to_h
+        List.transaction do
+            request_json.each do |list_id, new_position|
+                target = List.find(list_id)
+                target.position = new_position
+                target.save!
+            end
+        end
     end
 
     def archive
@@ -73,7 +84,7 @@ class ListController < ApplicationController
     end
 
     def list_params
-        params.permit(:name, :board_id)
+        params.permit(:name, :board_id, :position)
     end
 
     def ensure_params_exist
