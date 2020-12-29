@@ -47,6 +47,8 @@ class ListController < ApplicationController
                 target.save!
             end
         end
+
+        render json: {success: "lists reordered successfully!"}, status: 200
     end
 
     def archive
