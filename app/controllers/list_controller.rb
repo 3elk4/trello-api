@@ -39,11 +39,11 @@ class ListController < ApplicationController
     end
 
     def reorder
-        request_json = params.to_h
+        request_json = params[:positions]
         List.transaction do
             request_json.each do |list_id, new_position|
-                target = List.find(list_id)
-                target.position = new_position
+                target = List.find(list_id.to_i)
+                target[:position] = new_position
                 target.save!
             end
         end
