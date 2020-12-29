@@ -53,7 +53,7 @@ class UserController < ApplicationController
     private
 
     def user_params
-        params.permit(:username, :password, :avatar)
+        params.permit(:username, :password, :avatar, :email, :description)
     end
 
     def ensure_params_exist
