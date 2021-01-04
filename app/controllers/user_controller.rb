@@ -29,7 +29,7 @@ class UserController < ApplicationController
       user = JsonWebToken.decode(request.headers["Authorization"].split(" ").last)
       target_user = User.find(user[:user_id])
 
-      render json: {id: target_user[:id], username: target_user[:username]}, status: 200
+      render json: {id: target_user[:id], username: target_user[:username], description: target_user[:description], email: target_user[:email]}, status: 200
     end
 
     def delete 
