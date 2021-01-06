@@ -9,7 +9,7 @@ class HistoryEntryController < ApplicationController
 
     def get_all
         ensure_params_exist
-        render json: Board.find(params[:board_id]).history_entries, adapter: :json, each_serializer: HistoryEntrySerializer, status: 200
+        render json: Board.find(params[:board_id]).history_entries.order(entry_date: :desc), adapter: :json, each_serializer: HistoryEntrySerializer, status: 200
     end
 
     private

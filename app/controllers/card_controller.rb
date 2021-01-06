@@ -48,7 +48,7 @@ class CardController < ApplicationController
     def delete
         ensure_params_exist
         target_card = get_cards.find(params[:id])
-        target_card.delete
+        target_card.destroy
 
         render json: {success: "Successfully deleted the card"}, status: 200
     end
