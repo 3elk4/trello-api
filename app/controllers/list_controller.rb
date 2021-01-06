@@ -63,7 +63,7 @@ class ListController < ApplicationController
         ensure_params_exist
         target_list = get_board_lists.find(params[:id])
         unless target_list.archiving_date.nil? then
-            target_list.delete
+            target_list.destroy
             render json: {success: "List deleted successfully!"}, status: 200
         else
             render json: {success: "Cannot delete unarchived list!"}, status: 403

@@ -40,7 +40,7 @@ class BoardController < ApplicationController
             if board.background.attached? then
                 board.background.purge
             end
-            board.delete
+            board.destroy
             render json: {success: "Board deleted successfully!"}, status: 200
         else
             render json: {error: "Cannot delete unarchived board!"}, status: 403
