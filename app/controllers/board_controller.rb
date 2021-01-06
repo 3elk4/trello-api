@@ -2,7 +2,7 @@ class BoardController < ApplicationController
     before_action :authorize_request
 
     def index
-        render json: {boards: current_user.boards.order(:archiving_date)}, adapter: :json, status: 200
+        render json: {boards: current_user.boards.order(archiving_date: :asc)}, adapter: :json, status: 200
     end
 
     def get
